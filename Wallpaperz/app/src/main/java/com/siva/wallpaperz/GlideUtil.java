@@ -7,7 +7,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
-import siva.com.wallpaperz.R;
+import com.siva.wallpaperz.R;
 
 /**
  * Created by user on 10/1/17.

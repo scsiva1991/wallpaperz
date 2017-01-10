@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1060833649871",
+    "firebase_url": "https://wallpaperz-e5a5d.firebaseio.com",
+    "project_id": "wallpaperz-e5a5d",
+    "storage_bucket": "wallpaperz-e5a5d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1060833649871:android:0dc0993c99fa864e",
+        "android_client_info": {
+          "package_name": "com.siva.wallpaperz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1060833649871-k834h5hk1aed9gnrlqutgc926qpmt36t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.siva.wallpaperz",
+            "certificate_hash": "AF2A9101F71743A334800AF8263C9DA9275383DF"
+          }
+        },
+        {
+          "client_id": "1060833649871-2jkceond9ivtbrpi1ar4trlcck45bdji.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0uG5bsa0S7BZ14tjkRzpSc2Ftc9RFCxY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1060833649871-2jkceond9ivtbrpi1ar4trlcck45bdji.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

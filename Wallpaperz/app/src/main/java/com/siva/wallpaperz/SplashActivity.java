@@ -5,7 +5,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import siva.com.wallpaperz.R;
+import com.siva.wallpaperz.R;
 
 public class SplashActivity extends AppCompatActivity {
 
