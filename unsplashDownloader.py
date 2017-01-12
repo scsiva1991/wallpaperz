@@ -17,29 +17,32 @@ auth = firebase.auth()
 user = auth.sign_in_with_email_and_password('siva@gmail.com', 'test1234')
 db = firebase.database()
 
-#Initialize the scheduler
-downloadSchedule = sched.scheduler(time.time, time.sleep)
+if __name__ == '__main__':
+    count = 26 #Script last downloaded page 26
+    #Initialize the scheduler
+    downloadSchedule = sched.scheduler(time.time, time.sleep)
 
-def downloadAndUpload(sc):
-    print("Started downloading from unsplash...")
-    url = "https://api.unsplash.com/photos/?client_id=6ff1bf6063364eee637b7b4d25f3bbe1447a0aeecf73734fb18176f953c448fd"
-    res = urllib.request.urlopen(url).read()
-    data = json.loads(res.decode('utf-8'))
-    print("Completed downloading from unsplash...")
+    def downloadAndUpload(sc, count):
+        print('count', count)
+        count += 1
+        print("Started downloading from unsplash...", "page ", count)
+        url = "https://api.unsplash.com/photos/?page="+str(count)+"&client_id=6ff1bf6063364eee637b7b4d25f3bbe1447a0aeecf73734fb18176f953c448fd"
+        res = urllib.request.urlopen(url).read()
+        data = json.loads(res.decode('utf-8'))
+        print("Completed downloading from unsplash...")
 
-    for url in data:
-        obj = {}
-        obj["small"] = url['urls']['small']
-        obj["thumb"] = url['urls']['thumb']
-        obj["raw"] = url['urls']['raw']
-        obj["regular"] = url['urls']['regular']
-        obj["full"] = url['urls']['full']
-        #Upload the firebase with image url
-        db.child("images").push(obj, user['idToken'])
+        for url in data:
+            obj = {}
+            obj["small"] = url['urls']['small']
+            obj["thumb"] = url['urls']['thumb']
+            obj["raw"] = url['urls']['raw']
+            obj["regular"] = url['urls']['regular']
+            obj["full"] = url['urls']['full']
+            #Upload the firebase with image url
+            db.child("images").push(obj, user['idToken'])
+        print("Completed uploading to firebase...")
+        print("--------------------------------------------------------------------------------------------------")
+        downloadSchedule.enter(120, 1, downloadAndUpload, (sc, count))
 
-    print("Completed uploading to firebase...")
-    print("--------------------------------------------------------------------------------------------------")
-    downloadSchedule.enter(120, 1, downloadAndUpload, (sc,))
-
-downloadSchedule.enter(120, 1, downloadAndUpload, (downloadSchedule,))
-downloadSchedule.run()
+    downloadSchedule.enter(120, 1, downloadAndUpload, (downloadSchedule, count))
+    downloadSchedule.run()
