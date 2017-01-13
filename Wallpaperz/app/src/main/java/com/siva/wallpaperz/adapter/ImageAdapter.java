@@ -1,6 +1,9 @@
 package com.siva.wallpaperz.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.view.View.OnClickListener;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.siva.wallpaperz.FullImageActivity;
 import com.siva.wallpaperz.GlideUtil;
 import com.siva.wallpaperz.Model.Image;
 import com.siva.wallpaperz.OnLoadMoreListener;
@@ -23,7 +27,7 @@ import java.util.List;
  * Created by user on 13/1/17.
  */
 
-public class ImageAdapter extends RecyclerView.Adapter  {
+public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder>  {
 
     private List<Image> imageList;
     private LayoutInflater inflater;
@@ -68,31 +72,24 @@ public class ImageAdapter extends RecyclerView.Adapter  {
         return imageList.get(position) != null ? VIEW_ITEM : VIEW_PROG;
     }
 
+    private Context getContext() {
+        return context;
+    }
+
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        RecyclerView.ViewHolder vh;
-        if (viewType == VIEW_ITEM) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(
-                    R.layout.image_list_item, parent, false);
+    public ImageAdapter.ImageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        ImageAdapter.ImageViewHolder vh;
+        View v = LayoutInflater.from(parent.getContext()).inflate(
+                R.layout.image_list_item, parent, false);
 
-            vh = new ImageViewHolder (v);
-        } else {
-            View v = LayoutInflater.from(parent.getContext()).inflate(
-                    R.layout.progress_bar_item, parent, false);
-
-            vh = new ProgressViewHolder(v);
-        }
+        vh = new ImageViewHolder (v);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof ImageViewHolder) {
-            Image image = imageList.get(position);
-            GlideUtil.loadImage(image.getListUrl(), ((ImageViewHolder) holder).thumbnail, image.getTimeStamp(), image.getColor());
-        } else {
-            ((ProgressViewHolder) holder).progressBar.setIndeterminate(true);
-        }
+    public void onBindViewHolder(ImageViewHolder holder, int position) {
+        Image image = imageList.get(position);
+        GlideUtil.loadImage(image.getListUrl(), ((ImageViewHolder) holder).thumbnail, image.getTimeStamp(), image.getColor());
     }
 
     public void setLoaded() {
@@ -108,9 +105,10 @@ public class ImageAdapter extends RecyclerView.Adapter  {
         this.onLoadMoreListener = onLoadMoreListener;
     }
 
-    public static class ImageViewHolder extends RecyclerView.ViewHolder {
+    public class ImageViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView thumbnail;
+
 
         public ImageViewHolder(View v) {
             super(v);
@@ -124,18 +122,24 @@ public class ImageAdapter extends RecyclerView.Adapter  {
                     Toast.makeText(v.getContext(),
                             "OnClick :",
                             Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, FullImageActivity.class);
+                    int position = getLayoutPosition();
+                    System.out.println("=== pos ==="+position);
+                    Image image = imageList.get(position);
 
+                    System.out.println("###image"+ imageList);
+
+                    Bundle extras = new Bundle();
+                    extras.putString("imageUrl", image.getListUrl());
+                    extras.putString("time", image.getTimeStamp());
+                    extras.putString("color", image.getColor());
+                    intent.putExtras(extras);
+                    context.startActivity(intent);
                 }
             });
         }
     }
 
-    public static class ProgressViewHolder extends RecyclerView.ViewHolder {
-        public ProgressBar progressBar;
 
-        public ProgressViewHolder(View v) {
-            super(v);
-            progressBar = (ProgressBar) v.findViewById(R.id.progressBar1);
-        }
-    }
+
 }

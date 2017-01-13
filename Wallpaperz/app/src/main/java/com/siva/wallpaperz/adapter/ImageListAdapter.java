@@ -27,7 +27,11 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.View
         public ViewHolder(View view) {
             super(view);
             thumbnailView = (ImageView) view.findViewById(R.id.thumbnail);
+
+
         }
+
+
     }
 
     public ImageListAdapter(List<Image> imageList) {

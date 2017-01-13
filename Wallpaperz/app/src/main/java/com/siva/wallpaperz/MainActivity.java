@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager = new ScrollControlLinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new ImageAdapter(this, imageList, mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 progressLayout.setVisibility(View.GONE);
             }
-        }, 5000);
+        }, 3000);
 
         mAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 progressLayout.setVisibility(View.GONE);
             }
-        }, 3000);
+        }, 2000);
     }
 
     private void loadData() {
