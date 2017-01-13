@@ -46,7 +46,7 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.View
     public void onBindViewHolder(ViewHolder holder, int position) {
         Image image = imageList.get(position);
         System.out.print("========= image ========"+image.getThumb());
-        GlideUtil.loadImage(image.getThumb(), holder.thumbnailView);
+        GlideUtil.loadImage(image.getThumb(), holder.thumbnailView, image.getTimeStamp(), image.getColor());
     }
 
     @Override

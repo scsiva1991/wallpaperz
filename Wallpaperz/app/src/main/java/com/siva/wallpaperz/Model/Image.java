@@ -5,21 +5,26 @@ package com.siva.wallpaperz.Model;
  */
 
 public class Image {
+    private String listUrl;
+    private String fullUrl;
     private String thumb;
     private String raw;
     private String full;
     private String small;
     private String regular;
+    private String timeStamp;
+    private String color;
 
     public Image() {
 
     }
 
-    public Image(String thumb, String raw, String full) {
-        this.thumb = thumb;
-        this.raw = raw;
-        this.full = full;
+    public Image(String listUrl, String timeStamp, String color) {
+        this.listUrl = listUrl;
+        this.timeStamp = timeStamp;
+        this.color = color;
     }
+
 
     public String getThumb() {
         return thumb;
@@ -59,5 +64,37 @@ public class Image {
 
     public void setRegular(String regular) {
         this.regular = regular;
+    }
+
+    public String getListUrl() {
+        return listUrl;
+    }
+
+    public void setListUrl(String listUrl) {
+        this.listUrl = listUrl;
+    }
+
+    public String getFullUrl() {
+        return fullUrl;
+    }
+
+    public void setFullUrl(String fullUrl) {
+        this.fullUrl = fullUrl;
+    }
+
+    public String getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }
